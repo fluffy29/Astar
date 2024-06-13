@@ -42,6 +42,8 @@ def a_star_search(cities, start, goal):
     g_score = {start: 0}
     f_score = {start: heuristic(cities.get(start)['coords'], cities.get(goal)['coords'])}
 
+    print(f"{'OPEN':<15} {'CLOSED':<15} {'succ':<15} {'g(cur)':<10} {'c(cur,succ)':<15} {'g+c':<10}")
+    
     while open_list:
         current = heapq.heappop(open_list)[1]
 
@@ -65,6 +67,8 @@ def a_star_search(cities, start, goal):
             came_from[neighbor] = current
             g_score[neighbor] = tentative_g_score
             f_score[neighbor] = g_score[neighbor] + heuristic(cities.get(neighbor)['coords'], cities.get(goal)['coords'])
+
+            print(f"{current:<15} {closed_list} {neighbor:<15} {g_score[current]:<10} {cost:<15} {tentative_g_score:<10}")
 
     return None
 
@@ -151,19 +155,5 @@ def read_map(file_path):
 
     return cities
 
-def check_shortest_path(cities, start, goal, intermediary):
-    path = a_star_search(cities, start, goal)
-    if path is None:
-        return False, []
-    return intermediary in path, path
-
 if __name__ == "__main__":
-    # Load the cities data
-    cities = read_map('FRANCE.MAP')
-
-    # Check if Bordeaux is on the shortest path from Nantes to Toulouse
-    is_on_path, path = check_shortest_path(cities, "Nantes", "Toulouse", "Bordeaux")
-    if is_on_path:
-        print(f"Bordeaux is on the shortest path from Nantes to Toulouse: {path}")
-    else:
-        print(f"Bordeaux is not on the shortest path from Nantes to Toulouse: {path}")
+    main()
