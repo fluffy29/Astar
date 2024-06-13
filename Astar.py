@@ -151,6 +151,19 @@ def read_map(file_path):
 
     return cities
 
+def check_shortest_path(cities, start, goal, intermediary):
+    path = a_star_search(cities, start, goal)
+    if path is None:
+        return False, []
+    return intermediary in path, path
+
 if __name__ == "__main__":
-    result = main()
-    sys.exit(result)
+    # Load the cities data
+    cities = read_map('FRANCE.MAP')
+
+    # Check if Bordeaux is on the shortest path from Nantes to Toulouse
+    is_on_path, path = check_shortest_path(cities, "Nantes", "Toulouse", "Bordeaux")
+    if is_on_path:
+        print(f"Bordeaux is on the shortest path from Nantes to Toulouse: {path}")
+    else:
+        print(f"Bordeaux is not on the shortest path from Nantes to Toulouse: {path}")
