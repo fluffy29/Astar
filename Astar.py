@@ -88,7 +88,7 @@ def main():
 
     map_file = 'FRANCE.MAP'
     if not os.path.exists(map_file):
-        print("Map file not found")
+        print("Map file not found(2)")
         return 2
 
     cities = read_map(map_file)
@@ -97,12 +97,12 @@ def main():
         return 2
 
     if not cities.contains(start_city) or not cities.contains(end_city):
-        print("Unknown city")
+        print("Unknown city (1)")
         return 1
 
     path = a_star_search(cities, start_city, end_city)
     if path is None:
-        print("No path found")
+        print("No path found(3)")
         return 3
     else:
         print("Path found:", path)
